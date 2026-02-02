@@ -1,72 +1,84 @@
 const WhyAdopt = () => {
   return (
-    <div className="max-w-5xl mx-auto px-6 py-12">
-      
-      <h1 className="text-4xl font-bold text-center mb-8 text-orange-600">
-        Why Adopt a Pet?
+    <div className="max-w-5xl mx-auto px-6 py-14">
+
+      {/* Page title */}
+      <h1 className="text-4xl font-semibold text-center text-[#1F2933] mb-6">
+        Why Adopt a Pet
       </h1>
 
-      <p className="text-lg text-gray-700 text-center mb-10">
-        <span className="font-semibold">Adopt, Don’t Shop</span> — because every animal deserves a loving home.
+      <p className="text-lg text-center text-[#4B5563] max-w-3xl mx-auto mb-14">
+        Adoption is not just an act of kindness. It is a responsible choice that
+        transforms lives, both human and animal.
       </p>
 
-      {/* Impact on Humans */}
-      <section className="mb-10">
-        <h2 className="text-2xl font-semibold mb-4">🐾 Benefits of Adoption for Humans</h2>
-        <ul className="space-y-3 text-gray-700">
-          <li>• Reduces stress, anxiety, and depression</li>
-          <li>• Improves mental well-being and emotional health</li>
-          <li>• Encourages physical activity through walks and play</li>
-          <li>• Provides companionship and reduces loneliness</li>
-          <li>• Builds empathy, responsibility, and routine</li>
-        </ul>
-      </section>
-
-      {/* Impact on Animals */}
-      <section className="mb-10">
-        <h2 className="text-2xl font-semibold mb-4">❤️ Impact of Adoption on Animals</h2>
-        <p className="text-gray-700 leading-relaxed">
-          Adoption saves lives. Animals in shelters often come from difficult backgrounds.
-          By adopting, you give them a second chance — a warm bed, proper care, love, and security.
-          Your home becomes their forever home.
+      {/* Humans */}
+      <section className="mb-14">
+        <h2 className="text-2xl font-semibold text-[#1F2933] mb-4">
+          Benefits of Adoption for Humans
+        </h2>
+        <p className="text-[#4B5563] leading-relaxed">
+          Sharing life with a companion animal has been shown to improve emotional
+          and mental well-being. Pets provide unconditional companionship, encourage
+          routine and physical activity, and help reduce stress, anxiety, and
+          loneliness. Adoption also nurtures empathy, patience, and a sense of
+          responsibility.
         </p>
       </section>
 
-      {/* Adopt Don't Shop */}
-      <section className="mb-10 bg-orange-50 p-6 rounded-xl">
-        <h2 className="text-2xl font-semibold mb-4 text-orange-600">
-          🚫 Adopt, Don’t Shop
+      {/* Animals */}
+      <section className="mb-14">
+        <h2 className="text-2xl font-semibold text-[#1F2933] mb-4">
+          Impact of Adoption on Animals
         </h2>
-        <p className="text-gray-700 leading-relaxed">
-          Buying pets fuels unethical breeding and puppy mills.
-          Adoption helps control overpopulation and supports ethical animal welfare.
-          Choosing adoption is choosing compassion.
+        <p className="text-[#4B5563] leading-relaxed">
+          Many animals waiting for adoption come from neglect, abandonment, or
+          unsafe environments. Adoption offers them a second chance at life —
+          access to proper medical care, safety, and a permanent home where they
+          are treated with dignity and love.
+        </p>
+      </section>
+
+      {/* Adopt don’t shop */}
+      <section className="mb-14 bg-[#FAF7F2] border border-[#E7E1D8] rounded-lg p-8">
+        <h2 className="text-2xl font-semibold text-[#1F2933] mb-4">
+          Adopt, Don’t Shop
+        </h2>
+        <p className="text-[#4B5563] leading-relaxed">
+          Purchasing pets often supports unethical breeding practices and
+          contributes to animal overpopulation. Adoption helps reduce the burden
+          on shelters and promotes ethical, compassionate animal welfare.
+          Choosing adoption is choosing responsibility over convenience.
         </p>
       </section>
 
       {/* Responsibility */}
-      <section className="mb-10">
-        <h2 className="text-2xl font-semibold mb-4">📌 Responsibility of a Pet Parent</h2>
-        <ul className="space-y-3 text-gray-700">
-          <li>• Regular feeding and clean water</li>
-          <li>• Veterinary care and vaccinations</li>
-          <li>• Daily exercise and mental stimulation</li>
-          <li>• Love, patience, and lifelong commitment</li>
-        </ul>
+      <section className="mb-14">
+        <h2 className="text-2xl font-semibold text-[#1F2933] mb-4">
+          Responsibility of a Pet Parent
+        </h2>
+        <p className="text-[#4B5563] leading-relaxed">
+          Bringing an animal into your home is a long-term commitment. Pet parents
+          are responsible for regular feeding, access to clean water, timely
+          veterinary care, daily exercise, mental stimulation, and above all,
+          patience and affection throughout the animal’s life.
+        </p>
       </section>
 
-      {/* After Adoption Guide */}
+      {/* After adoption */}
       <section>
-        <h2 className="text-2xl font-semibold mb-4">🏡 Care Guide After Adoption</h2>
-        <p className="text-gray-700 leading-relaxed">
-          Give your pet time to adjust. Create a safe environment, establish routines,
-          use positive reinforcement, and shower them with love.
-          Remember, adoption is not a rescue — it’s the beginning of a beautiful friendship.
+        <h2 className="text-2xl font-semibold text-[#1F2933] mb-4">
+          Life After Adoption
+        </h2>
+        <p className="text-[#4B5563] leading-relaxed">
+          Every adopted animal needs time to adjust. Creating a calm environment,
+          maintaining routines, and using positive reinforcement helps build trust.
+          Adoption is not a one-time act — it is the beginning of a lifelong bond.
         </p>
       </section>
 
     </div>
-  )
-}
+  );
+};
 
-export default WhyAdopt
+export default WhyAdopt;
