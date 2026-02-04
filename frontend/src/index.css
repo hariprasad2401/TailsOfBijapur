@@ -1,14 +1,66 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+html,
+body,
+#root {
+    height: 100%;
+}
 
-html,body,#root { height: 100%; }
-body { font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; }
+body {
+    font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Arial;
+}
+
+
+/* Horizontal team scroll */
+
 @keyframes scroll {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
 }
 
 .animate-scroll {
-  animation: scroll linear infinite;
+    animation: scroll linear infinite;
+}
+
+
+/* Scroll animations */
+
+.fade-in {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: all 0.7s ease-out;
+}
+
+.fade-slide {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.fade-left {
+    opacity: 0;
+    transform: translateX(-40px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.fade-right {
+    opacity: 0;
+    transform: translateX(40px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+
+/* ACTIVE */
+
+.fade-in.show,
+.fade-slide.show,
+.fade-left.show,
+.fade-right.show {
+    opacity: 1;
+    transform: translateX(0) translateY(0);
 }
