@@ -13,7 +13,8 @@ import Contact from './pages/Contact'
 import Layout from './components/Layout'
 import AdoptDetails from './pages/AdoptDetails'
 import WhyAdopt from './pages/WhyAdopt'
-import Doctors from "./pages/Doctors";
+import Doctors from "./pages/Doctors"
+import Indies from './pages/Indies';
 
 
 
@@ -31,6 +32,7 @@ function App() {
           <Route path="contact" element={<Contact />} />
           <Route path="why-adopt" element={<WhyAdopt />} />
           <Route path="doctors" element={<Doctors />} />
+          <Route path="indies" element={<Indies />} />
           {/* <Route path="donate" element={<Donate />} /> */}
         </Route>
       </Routes>
