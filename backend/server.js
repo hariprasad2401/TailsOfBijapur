@@ -1,6 +1,5 @@
 require("dotenv").config();
 
-// 🔹 Fix SRV DNS issue
 const dns = require("node:dns");
 dns.setServers(["1.1.1.1"]);
 
@@ -15,19 +14,21 @@ app.use(cors());
 app.use(express.json());
 
 const PORT = process.env.PORT || 4000;
+const ADMIN_EMAIL = process.env.ADMIN_EMAIL;
 
 /* ==============================
    MongoDB Connection
 ============================== */
 mongoose
-    .connect(process.env.MONGO_URI)
-    .then(() => console.log("MongoDB Connected"))
-    .catch((err) => console.error("MongoDB Error:", err));
+  .connect(process.env.MONGO_URI)
+  .then(() => console.log("✅ MongoDB Connected"))
+  .catch((err) => console.error("❌ MongoDB Error:", err));
 
 /* ==============================
    Adoption Schema
 ============================== */
-const adoptionSchema = new mongoose.Schema({
+const adoptionSchema = new mongoose.Schema(
+  {
     name: String,
     email: String,
     age: String,
@@ -38,17 +39,20 @@ const adoptionSchema = new mongoose.Schema({
     description: String,
     image: String,
     status: {
-        type: String,
-        default: "PENDING",
+      type: String,
+      default: "PENDING",
     },
-}, { timestamps: true });
+  },
+  { timestamps: true }
+);
 
 const Adoption = mongoose.model("Adoption", adoptionSchema);
 
 /* ==============================
    Volunteer Schema
 ============================== */
-const volunteerSchema = new mongoose.Schema({
+const volunteerSchema = new mongoose.Schema(
+  {
     name: String,
     email: String,
     phone: String,
@@ -56,37 +60,38 @@ const volunteerSchema = new mongoose.Schema({
     time: String,
     why: String,
     status: {
-        type: String,
-        default: "PENDING",
+      type: String,
+      default: "PENDING",
     },
-}, { timestamps: true });
-
+  },
+  { timestamps: true }
+);
 
 const Volunteer = mongoose.model("Volunteer", volunteerSchema);
 
 /* ==============================
-   Zoho SMTP Transporter
+   SMTP Transporter
 ============================== */
 const transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: Number(process.env.SMTP_PORT),
-    secure: false,
-    auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
-    },
+  host: process.env.SMTP_HOST,
+  port: Number(process.env.SMTP_PORT),
+  secure: false,
+  auth: {
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASS,
+  },
 });
 
 transporter.verify((err) => {
-    if (err) {
-        console.error("SMTP ERROR:", err);
-    } else {
-        console.log("SMTP Ready");
-    }
+  if (err) {
+    console.error("❌ SMTP ERROR:", err);
+  } else {
+    console.log("✅ SMTP ready to send emails");
+  }
 });
 
 /* ==============================
-   File Upload (Multer)
+   File Upload
 ============================== */
 const upload = multer({ dest: "uploads/" });
 
@@ -94,46 +99,46 @@ const upload = multer({ dest: "uploads/" });
    Submit Adoption
 ============================== */
 app.post(
-    "/api/adopt-submissions",
-    upload.single("image"),
-    async(req, res) => {
-        try {
-            const {
-                name,
-                email,
-                age,
-                gender,
-                vaccinated,
-                location,
-                phone,
-                description,
-            } = req.body;
+  "/api/adopt-submissions",
+  upload.single("image"),
+  async (req, res) => {
+    try {
+      const {
+        name,
+        email,
+        age,
+        gender,
+        vaccinated,
+        location,
+        phone,
+        description,
+      } = req.body;
 
-            if (!location || !phone) {
-                return res
-                    .status(400)
-                    .json({ ok: false, error: "Missing required fields" });
-            }
+      if (!location || !phone) {
+        return res
+          .status(400)
+          .json({ ok: false, error: "Missing required fields" });
+      }
 
-            const newSubmission = new Adoption({
-                name,
-                email,
-                age,
-                gender,
-                vaccinated,
-                location,
-                phone,
-                description,
-                image: req.file ? req.file.filename : null,
-            });
+      const newSubmission = new Adoption({
+        name,
+        email,
+        age,
+        gender,
+        vaccinated,
+        location,
+        phone,
+        description,
+        image: req.file ? req.file.filename : null,
+      });
 
-            await newSubmission.save();
+      await newSubmission.save();
 
-            await transporter.sendMail({
-                from: `"Tails of Bijapur" <${process.env.SMTP_USER}>`,
-                to: process.env.ADMIN_EMAIL,
-                subject: `🐾 New Adoption Submission - ${name || "Unknown"}`,
-                text: `
+      await transporter.sendMail({
+        from: `"Tails of Bijapur" <${process.env.SMTP_USER}>`,
+        to: ADMIN_EMAIL,
+        subject: `🐾 New Adoption Submission - ${name || "Unknown"}`,
+        text: `
 New Adoption Submission
 
 Name: ${name || "-"}
@@ -147,162 +152,102 @@ Phone: ${phone}
 Description:
 ${description || "-"}
         `,
-            });
+      });
 
-            res.json({ ok: true });
-        } catch (err) {
-            console.error("ADOPTION ERROR:", err);
-            res.status(500).json({ ok: false, error: "Submission failed" });
-        }
+      res.json({ ok: true });
+    } catch (err) {
+      console.error("ADOPTION ERROR:", err);
+      res.status(500).json({ ok: false, error: "Submission failed" });
     }
+  }
 );
 
 /* ==============================
    Submit Volunteer
 ============================== */
-app.post("/api/volunteer", async(req, res) => {
-    try {
-        const { name, email, phone, role, time, why } = req.body;
+app.post("/api/volunteer", async (req, res) => {
+  try {
+    const { name, email, phone, role, time, why } = req.body;
 
-        if (!name || !email) {
-            return res.status(400).json({ error: "Missing required fields" });
-        }
+    if (!name || !email) {
+      return res.status(400).json({ ok: false, error: "Missing required fields" });
+    }
 
-        const newVolunteer = new Volunteer({
-            name,
-            email,
-            phone,
-            role,
-            time,
-            why,
-        });
+    const newVolunteer = new Volunteer({
+      name,
+      email,
+      phone,
+      role,
+      time,
+      why,
+    });
 
-        await newVolunteer.save();
+    await newVolunteer.save();
 
-        await transporter.sendMail({
-            from: `"Tails of Bijapur" <${process.env.SMTP_USER}>`,
-            to: process.env.ADMIN_EMAIL,
-            subject: "🐾 New Volunteer Application",
-            text: `
+    await transporter.sendMail({
+      from: `"Tails of Bijapur" <${process.env.SMTP_USER}>`,
+      to: ADMIN_EMAIL,
+      subject: `🐾 New Volunteer Application – ${name}`,
+      text: `
 New Volunteer Application
 
 Name: ${name}
 Email: ${email}
 Phone: ${phone || "-"}
-Occupation: ${role || "-"}
+Role: ${role || "-"}
 Availability: ${time || "-"}
+
 Why:
 ${why || "-"}
       `,
-        });
+    });
 
-        res.json({ ok: true });
-    } catch (err) {
-        console.error("VOLUNTEER ERROR:", err);
-        res.status(500).json({ error: "Submission failed" });
-    }
+    res.json({ ok: true });
+  } catch (err) {
+    console.error("VOLUNTEER ERROR:", err);
+    res.status(500).json({ ok: false, error: "Submission failed" });
+  }
 });
 
 /* ==============================
-   Get All Adoption Submissions
+   Get All Submissions
 ============================== */
-app.get("/api/adopt-submissions", async(req, res) => {
-    try {
-        const submissions = await Adoption.find().sort({ createdAt: -1 });
-        res.json(submissions);
-    } catch (err) {
-        res.status(500).json({ error: "Failed to fetch submissions" });
-    }
+app.get("/api/adopt-submissions", async (req, res) => {
+  const submissions = await Adoption.find().sort({ createdAt: -1 });
+  res.json(submissions);
+});
+
+app.get("/api/volunteers", async (req, res) => {
+  const volunteers = await Volunteer.find().sort({ createdAt: -1 });
+  res.json(volunteers);
 });
 
 /* ==============================
-   Get All Volunteer Applications
+   Update Status
 ============================== */
-app.get("/api/volunteers", async(req, res) => {
-    try {
-        const volunteers = await Volunteer.find().sort({ createdAt: -1 });
-        res.json(volunteers);
-    } catch (err) {
-        res.status(500).json({ error: "Failed to fetch volunteers" });
-    }
+app.patch("/api/volunteers/:id", async (req, res) => {
+  const { status } = req.body;
+  const updated = await Volunteer.findByIdAndUpdate(
+    req.params.id,
+    { status },
+    { new: true }
+  );
+  res.json(updated);
+});
+
+app.patch("/api/adopt-submissions/:id", async (req, res) => {
+  const { status } = req.body;
+  const updated = await Adoption.findByIdAndUpdate(
+    req.params.id,
+    { status },
+    { new: true }
+  );
+  res.json(updated);
 });
 
 /* ==============================
-   Approve / Reject Volunteer
-============================== */
-app.patch("/api/volunteers/:id", async(req, res) => {
-    try {
-        const { status } = req.body;
-
-        const updated = await Volunteer.findByIdAndUpdate(
-            req.params.id, { status }, { new: true }
-        );
-
-        if (status === "APPROVED" && updated.email) {
-            await transporter.sendMail({
-                from: `"Tails of Bijapur" <${process.env.SMTP_USER}>`,
-                to: updated.email,
-                subject: "🐾 Volunteer Application Approved!",
-                text: `
-Hello ${updated.name},
-
-Your volunteer application has been approved!
-
-We will contact you soon.
-
-Thank you,
-Tails of Bijapur
-                `,
-            });
-        }
-
-        res.json(updated);
-    } catch (err) {
-        console.error("VOLUNTEER STATUS ERROR:", err);
-        res.status(500).json({ error: "Failed to update status" });
-    }
-});
-
-/* ==============================
-   Approve / Reject Adoption
-============================== */
-app.patch("/api/adopt-submissions/:id", async(req, res) => {
-    try {
-        const { status } = req.body;
-
-        const updated = await Adoption.findByIdAndUpdate(
-            req.params.id, { status }, { new: true }
-        );
-
-        if (status === "APPROVED" && updated.email) {
-            await transporter.sendMail({
-                from: `"Tails of Bijapur" <${process.env.SMTP_USER}>`,
-                to: updated.email,
-                subject: "🐾 Your Adoption Submission Has Been Approved!",
-                text: `
-Hello ${updated.name || ""},
-
-Good news!
-
-Your adoption submission has been approved.
-
-We will contact you shortly.
-
-Thank you for supporting Tails of Bijapur
-        `,
-            });
-        }
-
-        res.json(updated);
-    } catch (err) {
-        console.error("STATUS UPDATE ERROR:", err);
-        res.status(500).json({ error: "Failed to update status" });
-    }
-});
-
-/* ==============================
-   Server Start
+   Start Server
 ============================== */
 app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
+  console.log(`🚀 Server running on http://localhost:${PORT}`);
 });
