@@ -7,14 +7,13 @@ import Home from './pages/Home'
 import About from './pages/About'
 import Adopt from './pages/Adopt'
 import Volunteer from './pages/Volunteer'
-import Surrender from './pages/Surrender'
 import Contact from './pages/Contact'
-// import Donate from './pages/Donate'
 import Layout from './components/Layout'
 import AdoptDetails from './pages/AdoptDetails'
 import WhyAdopt from './pages/WhyAdopt'
 import Doctors from "./pages/Doctors"
-import Indies from './pages/Indies';
+import Indies from './pages/Indies'
+import Admin from './pages/Admin';
 
 
 
@@ -33,6 +32,7 @@ function App() {
           <Route path="why-adopt" element={<WhyAdopt />} />
           <Route path="doctors" element={<Doctors />} />
           <Route path="indies" element={<Indies />} />
+          <Route path="admin" element={<Admin />} />
           {/* <Route path="donate" element={<Donate />} /> */}
         </Route>
       </Routes>

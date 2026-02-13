@@ -114,6 +114,37 @@ export default function Volunteer() {
               />
             </label>
 
+            <label className="block mb-3">
+            Your Occupation
+            <select
+            value={form.role}
+                onChange={(e) =>
+                  setForm({ ...form, role: e.target.value })
+                }
+                className="w-full border border-gray-300 p-2.5 rounded-md mt-1 focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-300"
+              >
+                <option value="student">Student</option>
+                <option value="professional">Professional</option>
+              </select>
+            </label>
+
+            <label className="block mb-3">
+              How much time can you dedicate?
+              <select
+                value={form.time}
+                onChange={(e) =>
+                  setForm({ ...form, time: e.target.value })
+                }
+                className="w-full border border-gray-300 p-2.5 rounded-md mt-1 focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-300"
+              >
+                <option value="weekends">Weekends Only</option>
+                <option value="evenings">2-4 hours per week</option>
+                <option value="flexible">5-8 hours per week</option>
+                <option value="full">More than 8 hrs per week</option>
+              </select>
+            </label>
+
+
             <label className="block mb-4">
               Why do you want to volunteer?
               <textarea

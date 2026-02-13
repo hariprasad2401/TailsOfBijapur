@@ -40,67 +40,108 @@ export default function About() {
         </div>
       </section>
 
-      {/* OUR VALUES */}
-      <section className="mt-10 py-10 bg-[#f9efe5] rounded-lg">
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold">Our Values</h2>
-          <p className="text-lg text-gray-700">Guiding Principles</p>
-        </div>
+{/* OUR VALUES */}
+<section className="mt-14 py-14 bg-[#FAF7F2] rounded-2xl">
+  <div className="text-center mb-10">
+    <h2 className="text-3xl font-bold text-gray-900">
+      Our Values
+    </h2>
+    <p className="text-lg text-gray-600 mt-1">
+      What guides everything we do
+    </p>
+  </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 px-4">
-          {[
-            { icon: "compassion", title: "Compassion", text: "Unconditional love for all animals." },
-            { icon: "rehab", title: "Rehabilitation", text: "Healing minds, healing hearts." },
-            { icon: "community", title: "Community", text: "Together, we save lives." },
-          ].map((item) => (
-            <div
-              key={item.title}
-              className="bg-white/20 backdrop-blur-lg border border-white/30 p-6 rounded-2xl shadow-md flex flex-col items-center text-center min-h-[260px]"
-            >
-              <img
-                src={`/icons/${item.icon}.png`}
-                alt={item.title}
-                className="h-20 mb-4 opacity-80"
-              />
-              <h3 className="font-semibold text-xl">{item.title}</h3>
-              <p className="text-gray-600 mt-1">{item.text}</p>
-            </div>
-          ))}
-        </div>
-      </section>
+  <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 px-4">
+    {[
+      {
+        icon: "compassion",
+        title: "Compassion",
+        text: "Every animal deserves care, respect, and kindness, regardless of its past."
+      },  
+      {
+        icon: "rehab",
+        title: "Awareness",
+        text: "Educating people about responsible care, coexistence, and compassion towards animals."
+      },
+      {
+        icon: "community",
+        title: "Community",
+        text: "Real change happens when people come together for a shared cause."
+      },
+    ].map((item) => (
+      <div
+        key={item.title}
+        className="
+          bg-white
+          border border-[#E7E1D8]
+          p-7
+          rounded-2xl
+          shadow-sm
+          flex
+          flex-col
+          items-center
+          text-center
+          transition
+          hover:shadow-md
+          hover:-translate-y-1
+        "
+      >
+        <img
+          src={`/icons/${item.icon}.png`}
+          alt={item.title}
+          className="h-16 mb-3 opacity-90"
+        />
+
+        <div className="h-1 w-8 bg-orange-400 rounded-full mb-3" />
+
+        <h3 className="font-semibold text-xl text-gray-900">
+          {item.title}
+        </h3>
+
+        <p className="text-gray-600 mt-2 text-sm leading-relaxed">
+          {item.text}
+        </p>
+      </div>
+    ))}
+  </div>
+</section>
+
+
+
 
       {/* OUR STORY */}
       <section className="mt-14 py-14 bg-[#FAF7F2] rounded-lg">
       <div className="max-w-4xl mx-auto px-6">
         
-        <h2 className="text-3xl font-semibold text-[#1F2933] mb-6 text-center">
-          How Tails of Bijapur Began
-        </h2>
+      <h2 className="text-3xl font-semibold text-[#1F2933] mb-6 text-center">
+      How Tails of Bijapur Began </h2>
 
-        <div className="space-y-6 text-[#4B5563] text-lg leading-relaxed">
-          <p>
-            Tails of Bijapur began in 2023 with a clear purpose: to ensure that injured,
-            abandoned, and vulnerable animals in Bijapur receive timely care and a fair
-            chance at life. What started as a personal effort to foster and rehome a few
-            puppies soon highlighted a much larger need within the community.
-          </p>
+    <div className="space-y-6 text-[#4B5563] text-lg leading-relaxed">
+      <p>
+        Tails of Bijapur was started by Anirudha Gudi on 20th June 2025 with a clear
+        purpose: to ensure that injured, abandoned, and vulnerable animals in Bijapur
+        receive timely care and a fair chance at life. What began as a personal effort
+        soon revealed a much larger need within the city.
+      </p>
 
-          <p>
-            As rescue cases increased, individuals who were already helping animals in
-            their own capacities came together under a shared mission. These collective
-            efforts gradually evolved into a coordinated platform focused on on-ground
-            treatment, rehabilitation, and responsible rehoming.
-          </p>
+      <p>
+        Many compassionate individuals were already helping animals in their own ways,
+        rescuing, feeding, fostering, and arranging medical care independently. Tails of
+        Bijapur brought these animal lovers together under one roof, creating a fresh
+        wave of collective responsibility and coordinated action.
+      </p>
 
-          <p>
-            Today, Tails of Bijapur operates as a community-driven initiative, connecting
-            caregivers, veterinarians, and volunteers to provide animals with dignity,
-            medical support, and the second chances they deserve.
-          </p>
-        </div>
+      <p>
+        Today, Tails of Bijapur stands as a community-driven initiative that connects
+        volunteers, veterinarians, and caregivers to respond faster, work smarter, and
+        ensure animals receive dignity, medical support, and the second chances they
+        truly deserve.
+      </p>
+    </div>
 
-      </div>
-    </section>
+
+          </div>
+        </section>
 
 
       {/* TEAM */}

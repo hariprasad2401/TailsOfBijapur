@@ -1,4 +1,6 @@
 import useScrollReveal from "../hooks/useScrollReveal";
+import IndigenousBreedsSlider from "../components/IndigenousBreedsSlider";
+
 
 const Indies = () => {
   useScrollReveal();
@@ -36,28 +38,20 @@ const Indies = () => {
         </div>
       </section>
 
-      {/* DIVERSITY */}
-      <section className="mb-28 fade-slide">
-        <h2 className="text-2xl font-semibold text-[#1F2933] mb-6">
-          No Two Indies Are the Same
+      {/* INDIGENOUS BREEDS */}
+      <section className="mb-28">
+        <h2 className="text-2xl font-semibold text-[#1F2933] mb-6 fade-slide">
+          Indigenous Dogs of India
         </h2>
 
-        <p className="text-[#4B5563] max-w-4xl mb-10">
-          From coastal regions to cities and villages, Indies reflect the land
-          they grow up in. Their diversity is their strength.
+        <p className="text-[#4B5563] max-w-3xl mb-10 fade-slide">
+          India is home to some of the world’s oldest and most resilient dog breeds.
+          Each evolved for purpose, climate, and survival and not appearance.
         </p>
 
-        <div className="grid sm:grid-cols-3 gap-6">
-          {["Coastal", "Urban", "Rural"].map((type, i) => (
-            <div
-              key={i}
-              className="h-56 bg-[#FAF7F2] border border-[#E7E1D8] rounded-xl flex items-center justify-center text-sm text-[#6B7280] fade-slide"
-            >
-              Image placeholder – {type} Indie
-            </div>
-          ))}
-        </div>
+        <IndigenousBreedsSlider />
       </section>
+
 
       {/* ACCIDENT FACTS */}
       <section className="mb-28">

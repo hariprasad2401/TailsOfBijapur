@@ -110,30 +110,57 @@ export default function Adopt() {
         </div>
 
         {/* HERO CONTENT (separated from banner) */}
-        <div className="max-w-4xl mx-auto mt-8 mb-8 px-4">
-          <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
-              <div className="text-left">
-                <span className="inline-block mb-3 px-3 py-1 text-xs font-semibold rounded-full bg-orange-100 text-orange-700">Adopt / Rehome</span>
-                <h2 className="text-2xl sm:text-3xl font-semibold text-gray-900 mt-1">Find a Loving Home — or Help One Find It</h2>
-                <p className="mt-3 text-sm text-gray-700 max-w-xl">Found a puppy? Want to place one for adoption? Submit clear details and a photo. Our volunteer team verifies each submission and publishes approved listings to connect pets with safe, loving homes.</p>
+        {/*<div className="max-w-4xl mx-auto mt-8 mb-8 px-4"> */}
+        <div className="max-w-6xl mx-auto px-4 py-16">
+          <div className="bg-white rounded-2xl p-8 sm:p-10 shadow-sm border border-gray-100">
+            
+            <div className="max-w-3xl">
+              <span className="inline-block mb-4 px-3 py-1 text-xs font-semibold rounded-full bg-orange-100 text-orange-700">
+                Adopt / Rehome
+              </span>
 
-                <ul className="mt-4 space-y-2 text-sm text-gray-600">
-                  <li className="flex items-start gap-2"><span className="text-green-600">✔️</span> Quick review by our volunteer team</li>
-                  <li className="flex items-start gap-2"><span className="text-green-600">✔️</span> Verification call before publishing</li>
-                  <li className="flex items-start gap-2"><span className="text-green-600">✔️</span> Privacy respected — contact shared only on approval</li>
-                </ul>
+              <h2 className="text-3xl sm:text-3xl font-semibold text-gray-900 leading-tight">
+              Find a Loving Home{" "}
+              <span className="text-orange-500">Be the Reason One Is Found</span></h2>
 
-                <div className="mt-6 flex flex-col sm:flex-row gap-3">
-                  <a href="#approved" className="inline-block px-5 py-2 bg-[#C2410C] text-white rounded-md text-sm font-medium">See approved puppies</a>
-                  <a href="#submit" className="inline-block px-5 py-2 border border-gray-200 rounded-md text-sm text-gray-700">Submit a puppy</a>
-                </div>
-              </div>
+              <p className="mt-4 text-sm sm:text-base text-gray-700 leading-relaxed">
+                Found a puppy? Looking to place one for adoption? Share clear details and a photo.
+                Our volunteer team carefully verifies each request before publishing approved listings,
+                ensuring safe and responsible adoptions.
+              </p>
 
-              <div className="hidden md:block">
-                <img src="/images/adopt/charlie.jpg" alt="puppy" className="rounded-xl object-cover w-full h-44 border" />
+              <ul className="mt-6 space-y-3 text-sm text-gray-600">
+                <li className="flex items-start gap-3">
+                  <span className="text-green-600">✔️</span>
+                  Quick review by our volunteer team
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-green-600">✔️</span>
+                  Verification call before publishing
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-green-600">✔️</span>
+                  Privacy respected — contact shared only after approval
+                </li>
+              </ul>
+
+              <div className="mt-8 flex flex-col sm:flex-row gap-4">
+                <a
+                  href="#approved"
+                  className="inline-flex justify-center items-center px-6 py-3 bg-[#C2410C] text-white rounded-lg text-sm font-medium hover:bg-[#9A3412] transition"
+                >
+                  See approved puppies
+                </a>
+
+                <a
+                  href="#submit"
+                  className="inline-flex justify-center items-center px-6 py-3 border border-gray-200 rounded-lg text-sm text-gray-700 hover:bg-gray-50 transition"
+                >
+                  Submit a puppy
+                </a>
               </div>
             </div>
+
           </div>
         </div>
 
