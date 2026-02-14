@@ -76,15 +76,19 @@ export default function Adopt() {
       payload.append('image', imageFile)
 
       // Endpoint should accept multipart/form-data, send email to admins, and save submission for review
-      const res = await fetch('/api/adopt-submissions', {
+      const res = await fetch('http://localhost:4000/api/adopt-submissions', {
+
         method: 'POST',
         body: payload,
       })
 
       if (!res.ok) {
         const text = await res.text()
-        throw new Error(text || 'Submission failed')
-      }
+        console.log("SERVER RESPONSE:", text)
+        throw new Error("Submission failed")
+}
+
+
 
       setSuccess('Thanks — your submission has been received and will be reviewed. We will email you once it is approved.')
       setForm({ name: '', age: '', gender: 'Female', vaccinated: 'Unknown', location: '', phone: '', description: '' })
@@ -99,10 +103,11 @@ export default function Adopt() {
   }
 useEffect(() => {
   fetch("http://localhost:4000/api/approved-puppies")
-    .then(res => res.json())
-    .then(data => setApprovedPuppies(data))
-    .catch(err => console.error(err));
+  .then(res => res.json())
+  .then(data => setApprovedPuppies(data));
+
 }, []);
+
 
   return (
     <div className="bg-[#FAF7F2]">
@@ -288,13 +293,14 @@ useEffect(() => {
             {approvedPuppies.map((puppy) => (
               <div key={puppy._id} className="border p-4 rounded shadow bg-white">
 
-                {puppy.image && (
-                  <img
-                    src={`http://localhost:4000/uploads/${puppy.image}`}
-                    alt={puppy.name}
-                    className="w-full h-48 object-cover rounded"
-                  />
-                )}
+                {puppy.imageUrl && (
+                      <img
+                        src={puppy.imageUrl}
+                        alt={puppy.name}
+                        className="w-full h-48 object-cover rounded"
+                      />
+                    )}
+
 
                 <h3 className="text-xl font-semibold mt-2">
                   {puppy.name || "Unnamed Puppy"}

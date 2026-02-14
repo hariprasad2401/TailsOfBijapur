@@ -18,9 +18,10 @@ export default function Admin() {
     fetchVolunteers(token);
   }, []);
 
+  // ✅ Fetch ONLY pending adoptions
   async function fetchAdoptions(token) {
     try {
-      const res = await fetch("/api/admin/adoptions", {
+      const res = await fetch("/api/admin/pending", {
         headers: {
           Authorization: "Bearer " + token,
         },
@@ -60,40 +61,37 @@ export default function Admin() {
     }
   }
 
+  // ✅ Update adoption status and REMOVE from UI
   async function updateAdoption(id, status) {
-  const token = localStorage.getItem("adminToken");
+    const token = localStorage.getItem("adminToken");
 
-  try {
-    const res = await fetch(`/api/admin/adoptions/${id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + token,
-      },
-      body: JSON.stringify({ status }),
-    });
+    try {
+      const res = await fetch(`/api/admin/adoptions/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
+        body: JSON.stringify({ status }),
+      });
 
-    if (!res.ok) {
-      alert("Failed to update adoption status");
-      return;
+      if (!res.ok) {
+        alert("Failed to update adoption status");
+        return;
+      }
+
+      // 🔥 Remove from UI immediately (no need to refetch)
+      setAdoptions((prev) => prev.filter((item) => item._id !== id));
+
+    } catch (err) {
+      console.error(err);
     }
-
-    setAdoptions((prev) =>
-      prev.map((item) =>
-        item._id === id ? { ...item, status } : item
-      )
-    );
-  } catch (err) {
-    console.error(err);
   }
-}
-
 
   async function updateVolunteer(id, status) {
     const token = localStorage.getItem("adminToken");
 
     await fetch(`/api/volunteers/${id}`, {
-
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -123,39 +121,45 @@ export default function Admin() {
       </div>
 
       {/* Adoption Section */}
-      <h2 className="text-2xl font-semibold mb-4">Adoption Requests</h2>
+      <h2 className="text-2xl font-semibold mb-4">Pending Adoption Requests</h2>
       <div className="space-y-4 mb-12">
+        {adoptions.length === 0 && (
+          <p className="text-gray-500">No pending requests</p>
+        )}
+
         {adoptions.map((item) => (
-          <div key={item._id} className="bg-white p-5 rounded shadow">
-          {item.image && (
+        <div key={item._id} className="bg-white p-5 rounded shadow">
+          {item.imageUrl && (
             <img
-              src={`http://localhost:4000/uploads/${item.image}`}
-              alt="Puppy"
+              src={item.imageUrl} // ✅ must use imageUrl
+              alt={item.name}
               className="w-40 h-40 object-cover rounded mb-4"
             />
           )}
+          <p><strong>Name:</strong> {item.name}</p>
+          <p><strong>Description:</strong> {item.description}</p>
+          <p><strong>Age:</strong> {item.age}</p>
+          <p><strong>Gender:</strong> {item.gender}</p>
+          <p><strong>Vaccinated:</strong> {item.vaccinated}</p>
+          <p><strong>Status:</strong> {item.status}</p>
 
-            <p><strong>Name:</strong> {item.name}</p>
-            <p><strong>Email:</strong> {item.email}</p>
-            <p><strong>Location:</strong> {item.location}</p>
-            <p><strong>Status:</strong> {item.status}</p>
-
-            <div className="mt-3 space-x-3">
-              <button
-                onClick={() => updateAdoption(item._id, "APPROVED")}
-                className="px-4 py-2 bg-green-500 text-white rounded"
-              >
-                Approve
-              </button>
-              <button
-                onClick={() => updateAdoption(item._id, "REJECTED")}
-                className="px-4 py-2 bg-red-500 text-white rounded"
-              >
-                Reject
-              </button>
-            </div>
+          <div className="mt-3 space-x-3">
+            <button
+              onClick={() => updateAdoption(item._id, "approved")}
+              className="px-4 py-2 bg-green-500 text-white rounded"
+            >
+              Approve
+            </button>
+            <button
+              onClick={() => updateAdoption(item._id, "rejected")}
+              className="px-4 py-2 bg-red-500 text-white rounded"
+            >
+              Reject
+            </button>
           </div>
-        ))}
+        </div>
+      ))}
+
       </div>
 
       {/* Volunteer Section */}
@@ -170,13 +174,13 @@ export default function Admin() {
 
             <div className="mt-3 space-x-3">
               <button
-                onClick={() => updateVolunteer(item._id, "APPROVED")}
+                onClick={() => updateVolunteer(item._id, "approved")}
                 className="px-4 py-2 bg-green-500 text-white rounded"
               >
                 Approve
               </button>
               <button
-                onClick={() => updateVolunteer(item._id, "REJECTED")}
+                onClick={() => updateVolunteer(item._id, "rejected")}
                 className="px-4 py-2 bg-red-500 text-white rounded"
               >
                 Reject
